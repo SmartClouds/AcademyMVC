@@ -12,5 +12,6 @@ namespace AcademyMVC.Entities
         public int MediaTypeId { get; set; }
         public DateTime DateTimeItemReleased { get; set; }
 
+
     }
 }
