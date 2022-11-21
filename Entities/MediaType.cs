@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AcademyMVC.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AcademyMVC.Entities
 {
-    public class MediaType
+    public class MediaType:IPrimaryProperties
     {
         public int Id { get; set; }
         [Required]
