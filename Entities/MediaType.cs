@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AcademyMVC.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AcademyMVC.Entities
 {
-    public class MediaType
+    public class MediaType:IPrimaryProperties
     {
         public int Id { get; set; }
         [Required]
         [StringLength(200, MinimumLength = 2)]
-        public int Title { get; set; }
+        public string Title { get; set; }
         [Required]
         public string ThumbnailImagePath { get; set; }
         [ForeignKey("MediaTypeId")]

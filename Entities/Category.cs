@@ -13,8 +13,8 @@ namespace AcademyMVC.Entities
         [Required]
         public string ThumbnailImagePath { get; set; }
         [ForeignKey("CategoryId")]
-        public virtual ICollection<CategoryItem> CategoryItems { get; set; }
+        public virtual ICollection<CategoryItem>? CategoryItems { get; set; }
         [ForeignKey("CategoryId")]
-        public virtual ICollection<UserCategory> UserCategory { get; set; }
+        public virtual ICollection<UserCategory>? UserCategory { get; set; }
     }
 }
