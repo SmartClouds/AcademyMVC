@@ -15,6 +15,8 @@ namespace AcademyMVC.Entities
         [NotMapped]
         public virtual ICollection<SelectListItem>? MediaType { get; set; }
         public DateTime DateTimeItemReleased { get; set; }
+        [NotMapped]
+        public int? ContentId { get; set; }
 
 
     }

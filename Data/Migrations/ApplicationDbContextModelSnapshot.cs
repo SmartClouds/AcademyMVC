@@ -135,7 +135,7 @@ namespace AcademyMVC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("AcademyMVC.Entities.CategoryItem", b =>
@@ -170,7 +170,7 @@ namespace AcademyMVC.Data.Migrations
 
                     b.HasIndex("MediaTypeId");
 
-                    b.ToTable("CategoryItem");
+                    b.ToTable("CategoryItem", (string)null);
                 });
 
             modelBuilder.Entity("AcademyMVC.Entities.Content", b =>
@@ -201,7 +201,7 @@ namespace AcademyMVC.Data.Migrations
 
                     b.HasIndex("categoryItemID");
 
-                    b.ToTable("Content");
+                    b.ToTable("Content", (string)null);
                 });
 
             modelBuilder.Entity("AcademyMVC.Entities.MediaType", b =>
@@ -223,7 +223,7 @@ namespace AcademyMVC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MediaType");
+                    b.ToTable("MediaType", (string)null);
                 });
 
             modelBuilder.Entity("AcademyMVC.Entities.UserCategory", b =>
@@ -247,7 +247,7 @@ namespace AcademyMVC.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserCategory");
+                    b.ToTable("UserCategory", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
