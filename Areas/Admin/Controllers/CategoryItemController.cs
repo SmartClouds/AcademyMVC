@@ -28,7 +28,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
                                              where catItem.CategoryId == categoryId
                                              select new CategoryItem
                                              {
-                                                 ID = catItem.CategoryId,
+                                                 ID = catItem.ID,
                                                  Title= catItem.Title,
                                                  Description= catItem.Description,
                                                  DateTimeItemReleased= catItem.DateTimeItemReleased,
@@ -92,12 +92,15 @@ namespace AcademyMVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            List<MediaType> mediaTypes = await _context.MediaType.ToListAsync();
 
             var categoryItem = await _context.CategoryItem.FindAsync(id);
             if (categoryItem == null)
             {
                 return NotFound();
             }
+            categoryItem.MediaType= mediaTypes.ConvertToSelectList(categoryItem.MediaTypeId);
+
             return View(categoryItem);
         }
 
@@ -131,7 +134,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { categoryId = categoryItem.CategoryId });
             }
             return View(categoryItem);
         }
@@ -170,7 +173,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { categoryId = categoryItem.CategoryId });
         }
 
         private bool CategoryItemExists(int id)
