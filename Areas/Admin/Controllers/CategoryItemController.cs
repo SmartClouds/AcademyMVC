@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AcademyMVC.Data;
 using AcademyMVC.Entities;
+using AcademyMVC.Extentions;
 
 namespace AcademyMVC.Areas.Admin.Controllers
 {
@@ -57,9 +58,15 @@ namespace AcademyMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryItem/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int categoryId)
         {
-            return View();
+
+            List<MediaType> mediaTypes = await _context.MediaType.ToListAsync();
+            CategoryItem categoryItem = new CategoryItem {
+                CategoryId = categoryId,
+                MediaType = mediaTypes.ConvertToSelectList(0)
+        };
+            return View(categoryItem);
         }
 
         // POST: Admin/CategoryItem/Create
@@ -73,7 +80,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
             {
                 _context.Add(categoryItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {categoryId=categoryItem.CategoryId});
             }
             return View(categoryItem);
         }

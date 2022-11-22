@@ -13,7 +13,7 @@ namespace AcademyMVC.Entities
         public int CategoryId { get; set; }
         public int MediaTypeId { get; set; }
         [NotMapped]
-        public virtual ICollection<SelectListItem> MediaType { get; set; }
+        public virtual ICollection<SelectListItem>? MediaType { get; set; }
         public DateTime DateTimeItemReleased { get; set; }
 
 
