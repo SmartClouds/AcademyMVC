@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AcademyMVC.Data;
 using AcademyMVC.Entities;
+using AcademyMVC.Extentions;
 
 namespace AcademyMVC.Areas.Admin.Controllers
 {
@@ -24,15 +25,20 @@ namespace AcademyMVC.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int categoryId)
         {
             List<CategoryItem> list = await (from catItem in _context.CategoryItem
+                                             join contentItem in _context.Content
+                                             on catItem.ID equals contentItem.categoryItem.ID
+                                             into gj
+                                             from subContent in gj.DefaultIfEmpty()
                                              where catItem.CategoryId == categoryId
                                              select new CategoryItem
                                              {
-                                                 ID = catItem.CategoryId,
+                                                 ID = catItem.ID,
                                                  Title= catItem.Title,
                                                  Description= catItem.Description,
                                                  DateTimeItemReleased= catItem.DateTimeItemReleased,
                                                  MediaTypeId= catItem.MediaTypeId,
                                                  CategoryId= categoryId,
+                                                 ContentId=(subContent!=null)? subContent.Id:0
                                              } ).ToListAsync();
             ViewBag.CategoryId = categoryId;
             return View(list);
@@ -57,9 +63,15 @@ namespace AcademyMVC.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryItem/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int categoryId)
         {
-            return View();
+
+            List<MediaType> mediaTypes = await _context.MediaType.ToListAsync();
+            CategoryItem categoryItem = new CategoryItem {
+                CategoryId = categoryId,
+                MediaType = mediaTypes.ConvertToSelectList(0)
+        };
+            return View(categoryItem);
         }
 
         // POST: Admin/CategoryItem/Create
@@ -73,7 +85,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
             {
                 _context.Add(categoryItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {categoryId=categoryItem.CategoryId});
             }
             return View(categoryItem);
         }
@@ -85,12 +97,15 @@ namespace AcademyMVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            List<MediaType> mediaTypes = await _context.MediaType.ToListAsync();
 
             var categoryItem = await _context.CategoryItem.FindAsync(id);
             if (categoryItem == null)
             {
                 return NotFound();
             }
+            categoryItem.MediaType= mediaTypes.ConvertToSelectList(categoryItem.MediaTypeId);
+
             return View(categoryItem);
         }
 
@@ -124,7 +139,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { categoryId = categoryItem.CategoryId });
             }
             return View(categoryItem);
         }
@@ -163,7 +178,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { categoryId = categoryItem.CategoryId });
         }
 
         private bool CategoryItemExists(int id)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AcademyMVC.Entities
 {
@@ -11,6 +12,11 @@ namespace AcademyMVC.Entities
        
         public string MyProperty{ get; set; }
         public string VideoLink { get; set;}
-        public CategoryItem categoryItem { get; set; }
+        public CategoryItem? categoryItem { get; set; }
+        [NotMapped]
+        public int? CatItemId { get; set; }
+        [NotMapped]
+        public int? CategoryId { get; set; }
+
     }
 }
