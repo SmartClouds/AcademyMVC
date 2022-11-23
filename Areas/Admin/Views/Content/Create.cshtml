@@ -12,7 +12,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <input  type="hidden" asp-for="CategoryId"/>
-            <input  type="hidden" asp-for="CatItemId"/>
+            <input  type="hidden" asp-for="CatItemId" />
+            <input type="hidden" asp-for="categoryItem" value="@Model.categoryItem" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>

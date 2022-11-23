@@ -40,20 +40,21 @@ namespace AcademyMVC.Areas.Admin.Controllers
                 content.categoryItem = await _context.CategoryItem.FindAsync(content.CatItemId);
                 _context.Add(content);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), "CategoryItem", new {catgoryId=content.CategoryId});
+                return RedirectToAction(nameof(Index), "CategoryItem", new {categoryId=content.CategoryId});
             }
             return View(content);
         }
 
         // GET: Admin/Content/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int categoryItemId, int categoryId)
         {
-            if (id == null || _context.Content == null)
+            if (categoryItemId == 0 )
             {
                 return NotFound();
             }
 
-            var content = await _context.Content.FindAsync(id);
+            var content = await _context.Content.SingleOrDefaultAsync(item => item.categoryItem.ID == categoryItemId);
+            content.CategoryId = categoryId;
             if (content == null)
             {
                 return NotFound();
@@ -66,7 +67,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,MyProperty,VideoLink")] Content content)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,MyProperty,VideoLink,CategoryId")] Content content)
         {
             if (id != content.Id)
             {
@@ -91,7 +92,8 @@ namespace AcademyMVC.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "CategoryItem", new { categoryId = content.CategoryId });
+
             }
             return View(content);
         }

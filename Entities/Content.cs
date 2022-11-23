@@ -12,7 +12,7 @@ namespace AcademyMVC.Entities
        
         public string MyProperty{ get; set; }
         public string VideoLink { get; set;}
-        public CategoryItem categoryItem { get; set; }
+        public CategoryItem? categoryItem { get; set; }
         [NotMapped]
         public int? CatItemId { get; set; }
         [NotMapped]
