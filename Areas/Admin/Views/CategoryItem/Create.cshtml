@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateTimeItemReleased" class="control-label"></label>
-                <input type="text" id="DateTimeItemReleased" name="DateTimeItemReleased" class="datepicker  form-control" />
+                <input type="text" id="DateTimeItemReleased" name="DateTimeItemReleased" class="datepicker form-control" value="@Model.DateTimeItemReleased.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="DateTimeItemReleased" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,11 +47,9 @@
     <a asp-action="Index" asp-route-categoryId="@Model.CategoryId">Back to List</a>
 </div>
 @section Scripts {
-<script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker({ format: "yyyy/mm/dd" });
-        });
-      
-</script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    @{
+        await Html.RenderPartialAsync("_DateScriptPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
