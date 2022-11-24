@@ -8,10 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using AcademyMVC.Data;
 using AcademyMVC.Entities;
 using AcademyMVC.Extentions;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AcademyMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class CategoryItemController : Controller
     {
         private readonly ApplicationDbContext _context;
