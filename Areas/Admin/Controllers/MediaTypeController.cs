@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AcademyMVC.Data;
 using AcademyMVC.Entities;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AcademyMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class MediaTypeController : Controller
     {
         private readonly ApplicationDbContext _context;
