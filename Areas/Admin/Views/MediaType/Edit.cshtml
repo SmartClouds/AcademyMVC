@@ -1,4 +1,4 @@
-﻿@model AcademyMVC.Entities.Content
+﻿@model AcademyMVC.Entities.MediaType
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,29 +6,22 @@
 
 <h1>Edit</h1>
 
-<h4>Content</h4>
+<h4>MediaType</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="CategoryId" />
-
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MyProperty" class="control-label"></label>
-                <input asp-for="MyProperty" class="form-control" />
-                <span asp-validation-for="MyProperty" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VideoLink" class="control-label"></label>
-                <input asp-for="VideoLink" class="form-control" />
-                <span asp-validation-for="VideoLink" class="text-danger"></span>
+                <label asp-for="ThumbnailImagePath" class="control-label"></label>
+                <input asp-for="ThumbnailImagePath" class="form-control" />
+                <span asp-validation-for="ThumbnailImagePath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -38,8 +31,7 @@
 </div>
 
 <div>
-    <a asp-controller="CategoryItem" asp-action="Index" asp-route-categoryId="@Model.CategoryId"> Back to List</a>
-
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

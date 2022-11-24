@@ -9,7 +9,7 @@
 <h4>CategoryItem</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <input type="hidden" asp-for="CategoryId" value="@Model.CategoryId" />
           
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" rows="2"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,10 +30,12 @@
                 <select asp-for="MediaTypeId" class="form-control" asp-items="@Model.MediaType">
                     <option value="">--Please Select a Media Type--</option>
                 </select>
+                <span asp-validation-for="MediaTypeId" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="DateTimeItemReleased" class="control-label"></label>
-                <input asp-for="DateTimeItemReleased" class="form-control" />
+                <input type="text" id="DateTimeItemReleased" name="DateTimeItemReleased" class="datepicker form-control" value="@Model.DateTimeItemReleased.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="DateTimeItemReleased" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -47,5 +49,9 @@
     <a asp-action="Index" asp-route-categoryId="@Model.CategoryId">Back to List</a>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    @{
+        await Html.RenderPartialAsync("_DateScriptPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
