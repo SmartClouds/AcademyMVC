@@ -30,11 +30,11 @@
 
                     userLoginButton = $("#UserLoginModal button[name='login']").click(onUserLoginClick);
 
-                    //var form = $("#UserLoginForm");
+                    var form = $("#UserLoginForm");
 
-                    //$(form).removeData("validator");
-                    //$(form).removeData("unobtrusiveValidation");
-                    //$.validator.unobtrusive.parse(form);
+                    $(form).removeData("validator");
+                    $(form).removeData("unobtrusiveValidation");
+                    $.validator.unobtrusive.parse(form);
 
                 }
                 else {
