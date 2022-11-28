@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AcademyMVC.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AcademyMVC.Entities
 {
-    public class Category
+    public class Category:IPrimaryProperties
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Insert between 2 and 200 characters")]
