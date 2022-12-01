@@ -4,6 +4,7 @@ using AcademyMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AcademyMVC.Controllers
 {
@@ -87,20 +88,43 @@ namespace AcademyMVC.Controllers
 
                     await _signManager.SignInAsync(user, isPersistent: false);
 
-                    if (registrationModel.CategoryId != 0)
-                    {
-                        await AddCategoryToUser(user.Id, registrationModel.CategoryId);
+                    //if (registrationModel.CategoryId != 0)
+                    //{
+                    //    await AddCategoryToUser(user.Id, registrationModel.CategoryId);
 
-                    }
+                    //}
 
                     return PartialView("_UserRegistrationPartial", registrationModel);
                 }
 
-                AddErrorsToModelState(result);
+               AddErrorsToModelState(result);
 
             }
             return PartialView("_UserRegistrationPartial", registrationModel);
 
         }
+
+        private void AddErrorsToModelState(IdentityResult result)
+        {
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            }
+
+
+        }
+
+        [AllowAnonymous]
+
+        public async Task<bool> UserNameExists(string userName)
+        {
+
+            bool userNameExists = await _context.Users.AnyAsync(x => x.UserName.ToUpper() == userName.ToUpper());
+            return userNameExists;
+        }
+    
     }
+
 }
