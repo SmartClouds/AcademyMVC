@@ -70,7 +70,7 @@ namespace AcademyMVC.Areas.Admin.Controllers
                     await dbContextTransaction.DisposeAsync();
                 }
             }
-
+          
             usersCategoryListModel.Users = await GetAllUsers();
 
             return PartialView("_UsersListViewPartial", usersCategoryListModel);
