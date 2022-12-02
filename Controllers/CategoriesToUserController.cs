@@ -1,12 +1,14 @@
 ﻿using AcademyMVC.Data;
 using AcademyMVC.Entities;
 using AcademyMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcademyMVC.Controllers
 {
+    [Authorize]
     public class CategoriesToUserController : Controller
     {
         private readonly ApplicationDbContext _context;
