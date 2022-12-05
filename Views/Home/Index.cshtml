@@ -9,8 +9,7 @@
 
 @if (Model.GroupedCategoryItemsByCategoryModels != null)
  {
-    @if (Model.GroupedCategoryItemsByCategoryModels.Count()>  0){
-                    <div class="row mt-5">
+        <div class="row mt-5">
                         <div class="col-md-6">
                             <h2>Your Courses</h2>
                         </div>
@@ -18,6 +17,8 @@
                             <a asp-controller="CategoriesToUser" asp-action="Index" class="btn btn-outline-dark">Choose Courses</a>
                         </div>
                     </div>
+    @if (Model.GroupedCategoryItemsByCategoryModels.Count()>  0){
+                 
                     <div class="row mt-3">
                         <div class="col-md-12">
            
