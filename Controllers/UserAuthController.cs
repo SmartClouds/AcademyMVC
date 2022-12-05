@@ -1,5 +1,6 @@
 ﻿
 using AcademyMVC.Data;
+using AcademyMVC.Entities;
 using AcademyMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -88,11 +89,11 @@ namespace AcademyMVC.Controllers
 
                     await _signManager.SignInAsync(user, isPersistent: false);
 
-                    //if (registrationModel.CategoryId != 0)
-                    //{
-                    //    await AddCategoryToUser(user.Id, registrationModel.CategoryId);
+                    if (registrationModel.CategoryId != 0)
+                    {
+                        await AddCategoryToUser(user.Id, registrationModel.CategoryId);
 
-                    //}
+                    }
 
                     return PartialView("_UserRegistrationPartial", registrationModel);
                 }
@@ -124,7 +125,15 @@ namespace AcademyMVC.Controllers
             bool userNameExists = await _context.Users.AnyAsync(x => x.UserName.ToUpper() == userName.ToUpper());
             return userNameExists;
         }
-    
+        private async Task AddCategoryToUser(string userId, int categoryId)
+        {
+            UserCategory userCategory = new UserCategory();
+            userCategory.CategoryId = categoryId;
+            userCategory.UserId = userId;
+            _context.UserCategory.Add(userCategory);
+            await _context.SaveChangesAsync();
+        }
+
     }
 
 }
